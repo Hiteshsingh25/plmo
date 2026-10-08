@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+/* ── design tokens (recovered from palmo.co.in) ─────────────────────── */
+:root {
+  --background: #f8f8f0;
+  --foreground: #463721;
+  --beige: #ffe386;
+  --light-beige: #ece2b1;
+  --light-brown: #684900;
+  --gold: #b9902e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-beige: var(--beige);
+  --color-light-beige: var(--light-beige);
+  --color-light-brown: var(--light-brown);
+  --color-gold: var(--gold);
+  --color-black: #000;
+
+  --font-inter: var(--font-inter), "Inter Fallback", sans-serif;
+  --font-khand: var(--font-khand), "Khand Fallback", sans-serif;
+  --font-patrick-hand: var(--font-patrick-hand), "Patrick Hand Fallback", cursive;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* the original site treats everything ≤1025px as "mobile" via max-md */
+  --breakpoint-md: 1025px;
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), sans-serif;
+    overflow-x: clip;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    /* fluid root: 1rem == 15px @ 1440 */
+    font-size: 1.04167vw;
+  }
+  ::selection {
+    background-color: var(--beige);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+/* ── type scale utilities ───────────────────────────────────────────── */
+.paddx {
+  padding-inline: 3vw;
+}
+.text180 {
+  letter-spacing: -0.05em;
+  font-size: 9rem;
+  line-height: 85%;
+  font-family: var(--font-khand);
+  font-weight: 600;
+}
+.text150 {
+  letter-spacing: -0.05em;
+  font-size: 8vw;
+  line-height: 85%;
+  font-family: var(--font-khand);
+  font-weight: 600;
+}
+.text52 {
+  letter-spacing: -0.04em;
+  font-size: 2.2rem;
+  line-height: 90%;
+}
+.text36 {
+  letter-spacing: -0.04em;
+  font-size: 1.45rem;
+  line-height: 120%;
+}
+.text32 {
+  letter-spacing: -0.04em;
+  font-size: 1.3rem;
+  line-height: 130%;
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 3.90625vw;
+  }
+  .paddx {
+    padding-inline: 5vw;
+  }
+  .text180 {
+    font-size: 4.5rem;
+  }
+  .text150 {
+    font-size: 3.5rem;
+  }
+  .text52 {
+    font-size: 1.75rem;
+  }
+  .text36 {
+    font-size: 1.15rem;
+  }
+  .text32 {
+    font-size: 1.05rem;
+  }
+  [data-menu-link] {
+    font-size: min(19vw, 11vh) !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 1025px) {
+  html {
+    font-size: 2.86458vw;
+  }
+  .paddx {
+    padding-inline: 5vw;
+  }
+  .text180 {
+    font-size: 4.5rem;
+  }
+  .text150 {
+    font-size: 3.5rem;
+  }
+  .text52 {
+    font-size: 1.75rem;
+  }
+  .text36 {
+    font-size: 1.15rem;
+  }
+  .text32 {
+    font-size: 1.05rem;
+  }
+  [data-menu-link] {
+    font-size: min(19vw, 11vh) !important;
+  }
+}
+
+/* ── "Slash activated" banner (footer mini-game) ────────────────────── */
+.slash-banner {
+  animation: 0.45s ease-in 1.95s forwards slash-fade-out;
+}
+.slash-scrim {
+  -webkit-backdrop-filter: blur(30px) saturate(0.85);
+  backdrop-filter: blur(30px) saturate(0.85);
+  background: #463721e6;
+  animation: 0.45s ease-out backwards slash-scrim-in;
+  position: absolute;
+  inset: 0;
+}
+@keyframes slash-scrim-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.slash-line {
+  background: linear-gradient(90deg, transparent, var(--beige) 22%, #fff 50%, var(--beige) 78%, transparent);
+  transform-origin: 0;
+  width: 120%;
+  height: 1px;
+  animation: 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards slash-line;
+  position: absolute;
+  left: -10%;
+  transform: rotate(-7deg) scaleX(0);
+}
+@keyframes slash-line {
+  0% {
+    opacity: 0;
+    transform: rotate(-7deg) scaleX(0);
+  }
+  15% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+    transform: rotate(-7deg) scaleX(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(-7deg) scaleX(1);
+  }
+}
+.slash-stack {
+  animation: 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.26s backwards slash-stack-in;
+}
+@keyframes slash-stack-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.slash-word {
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--beige);
+  font-size: 6.2vw;
+  font-weight: 600;
+  line-height: 1;
+  display: block;
+}
+.slash-word--bottom {
+  position: absolute;
+  inset: 0;
+}
+.slash-word--top {
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 60%);
+  animation: 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.34s backwards slash-half-top;
+}
+.slash-word--bottom {
+  clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
+  animation: 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.34s backwards slash-half-bottom;
+}
+@keyframes slash-half-top {
+  0% {
+    transform: translate(0);
+  }
+  30% {
+    transform: translate(0.35vw, -0.55vw);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+@keyframes slash-half-bottom {
+  0% {
+    transform: translate(0);
+  }
+  30% {
+    transform: translate(-0.35vw, 0.55vw);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+.slash-sub {
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+  color: var(--background);
+  opacity: 0.75;
+  margin-top: 1.4vw;
+  font-size: 1.05vw;
+  animation: 0.5s ease-out 0.62s backwards slash-sub-in;
+  display: block;
+}
+@keyframes slash-sub-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.75;
+  }
+}
+@keyframes slash-fade-out {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .slash-word {
+    font-size: 10.5vw;
+  }
+  .slash-sub {
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
+    margin-top: 4vw;
+    font-size: 2.9vw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slash-banner,
+  .slash-scrim,
+  .slash-line,
+  .slash-stack,
+  .slash-word,
+  .slash-sub {
+    animation: none;
+  }
+}
+
+/* ── Lenis ──────────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

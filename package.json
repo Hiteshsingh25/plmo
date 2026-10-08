@@ -1,0 +1,38 @@
+{
+  "name": "palmo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack -p 3380",
+    "build": "next build",
+    "start": "next start -p 3380",
+    "lint": "eslint .",
+    "snap": "node scripts/snap.mjs",
+    "qa:interact": "node scripts/interact.mjs",
+    "qa:pages": "node scripts/pages.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.26",
+    "next": "15.5.25",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/three": "^0.182.0",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "15.5.25",
+    "postcss": "^8.5.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.0"
+  }
+}

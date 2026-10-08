@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+_src
+.snaps
+*.tsbuildinfo
+next-env.d.ts
+
+# archives
+*.zip
